@@ -1,0 +1,7 @@
+Some image processing for 3d scanner
+
+Files: 
+
+process-video.py -- This will eventually become a filter which accepts video of scanning laser against the object and return a file containing cloud of points (x,y,z) for the scanned object
+
+test*.py -- files containing some experiments with the data processing algorithms
