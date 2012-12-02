@@ -1,0 +1,8 @@
+quadratisch.mp -- squares target
+circles.mp     -- circles target
+millimeter.mp  -- millimeter paper for printing on standard printer
+testcups.mp    -- check printer calibration: print two perpendicular millimeter rules 
+
+compile files with metapost:
+mpost <filename>.mp
+This produces <filename>.1 which is in the postscript format
