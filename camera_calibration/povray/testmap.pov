@@ -12,7 +12,7 @@ light_source {
   <0,0,1000>,rgb <1,1,1>
 }
 
-plane {
+#declare testplane = plane {
   z,0
 //box { <0,0,0> <1,1,0.001>
   pigment { 
@@ -22,9 +22,19 @@ plane {
       interpolate 2
       once
     }
-    scale 1.4142*y
+    scale sqrt(2)*y
   }
-  translate -0.707*y
+  translate (-1/sqrt(2))*y
   //scale 1.4142*y
 }
 
+object { 
+  testplane
+  rotate -45*y
+}
+
+object {
+  testplane
+  rotate -45*y
+  scale <-1,1,1>
+}
