@@ -12,18 +12,18 @@ light_source {
   <0,0,1000>,rgb <1,1,1>
 }
 
-//plane {
-//  z,0
-box { <0,0,0> <1,1,0.001>
+plane {
+  z,0
+//box { <0,0,0> <1,1,0.001>
   pigment { 
     image_map {
-      gif "testtext.gif" 
+      gif "testpage.gif" 
       map_type 0
       interpolate 2
+      //once
     }
-    //checker 
-    //pigment {color 0.2*White}
-    //pigment {color 0.7*White}
+    scale 1.4142*y
   }
+  //scale 1.4142*y
 }
 
