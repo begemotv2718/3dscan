@@ -28,6 +28,17 @@ light_source {
   //scale 1.4142*y
 }
 
+#declare laser_pointer = light_source {
+  <0,0,0>, rgb <1,0,0>
+  projected_through {
+    cylinder {
+      <0,-0.00001,0>,<0,0.00001,0>,1
+      open
+    }
+  }
+}
+
+
 object { 
   testplane
   rotate -45*y
@@ -37,4 +48,10 @@ object {
   testplane
   rotate -45*y
   scale <-1,1,1>
+}
+
+
+object {
+  laser_pointer
+  translate <0,0, 200>
 }
