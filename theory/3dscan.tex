@@ -1,0 +1,62 @@
+\documentclass{article}
+
+\begin{document}
+\title A project of 3d scanner
+\maketitle
+\section{Geometry}
+\subsection{Linear perspective projection}
+Assuming that the camera is placed at $(x,y,z)=(0,0,0)$ and optical axis of the camera is $X$ axis  we get the following equations for the coordinates of the projection of the point $(x,y,z)$
+\begin{equation}
+\begin{array}{l}
+ y_{im}=\frac{y f}{x} \\
+ z_{im} = \frac{ z f}{x}
+\end{array}
+\end{equation}
+\subsection{Reconstruction of the point on the given plane by projection}
+Let the plane has equation $\vec{n}\cdot\vec{r}=d$. All the points that projects into point $(y_{im}, z_{im})$ of the image are on the line that can be represented by parametrical equation $\vec{r}=(1, \frac{y_{im}}{f}, \frac{z_{im}}{f})t=\vec{m}t$. Thus the coordinate of the intersection is 
+\begin{equation}
+\vec{r} = \frac{\vec{m} d}{\vec{n}\cdot\vec{m}}
+\end{equation}
+\subsection{Reconstruction of the plane from intersection lines with two given planes}
+We first consider reconstruction from the traces left by the
+intersection of the plane with two mutually perpendicular planes. The
+line of intersection of the perpendicular planes are assumed to be
+parallel to $z$-axis and to intersect with the camera optical axis at
+the distance $d$. Let the angle between the first plane and camera
+axis be $\alpha$, thus the angle between the second plane and the
+camera axis is $\pi/2-\alpha$. 
+
+Consider the point at distance $\rho$ from the line of intersection, lying on the first plane. The coordinates of this point will be 
+$(d-\rho \cos \alpha, -\rho \sin\alpha, z)$. The projection of such a point 
+
+\appendix
+\section{Rational function}
+Consider the following function
+\begin{equation}
+\label{eq:rat}
+y = \frac{a x + b}{c x +d }.
+\end{equation} 
+We can formally represent this function as a matrix
+\begin{equation}
+A = \left(
+  \begin{array}{ll}
+    a  & b \\
+    c  & d 
+  \end{array}
+\right).
+\end{equation}
+Now lets assume that we make substitution in~(\ref{eq:rat})
+\[ x = \frac{ a_1 t + b_1 } { c_1 t +d_1} \] the matrix for this substitution being
+\begin{equation}
+A_1 = \left(
+  \begin{array}{ll}
+    a_1  & b_1 \\
+    c_1  & d_1 
+  \end{array}
+\right).
+\end{equation}
+Then the resulting matrix representing $y(t)$ will be $A A_1$.
+
+It is obvious that  $x(y)$ for  Eq.~(\ref{eq:rat}) is represented by the matrix $A^{-1}$. It is also obvious that the matrix is defined up to a constant multiplier, thus, for uniquiness one may consider matrices with unit determinant ( the case of zero determinant is degenerate). Thus, rational functions are related to group $SL(2)$.
+
+\end{document}
