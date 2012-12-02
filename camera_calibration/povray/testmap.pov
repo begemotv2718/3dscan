@@ -20,10 +20,11 @@ plane {
       gif "testpage.gif" 
       map_type 0
       interpolate 2
-      //once
+      once
     }
     scale 1.4142*y
   }
+  translate -0.707*y
   //scale 1.4142*y
 }
 
