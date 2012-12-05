@@ -9,9 +9,9 @@ camera {
   angle 92
 }
 
-light_source {
-  <0,0,1000>,rgb <1,1,1>
-}
+//light_source {
+//  <0,0,1000>,rgb <1,1,1>
+//}
 
 #declare testplane = plane {
   z,0
@@ -68,4 +68,10 @@ object {
   scale <-1,1,1>
 }
 
-
+#include "bottle.inc"
+object {
+  bottle
+  scale 0.5
+  translate <0,-0.25,0.8>
+  pigment {color 0.7*White}
+}
