@@ -53,5 +53,7 @@ object {
 
 object {
   laser_pointer
+  //rotate 30*z
+  rotate 0.1*x
   translate <0,0, 200>
 }
