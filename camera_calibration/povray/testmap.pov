@@ -30,7 +30,7 @@ light_source {
   //scale 1.4142*y
 }
 
-#declare laser_pointer = light_source {
+#declare laser_pointer_obj = light_source {
   <0,0,0>, rgb <1,0,0>
   projected_through {
     cylinder {
@@ -40,6 +40,22 @@ light_source {
   }
 }
 
+#macro laser_pointer(loc,lookat) 
+
+  #local dir = vnormalize(lookat-loc);
+  #local rotvect = vcross(y,dir);
+  #local axis = vnormalize(rotvect);
+  #local theta = degrees(acos(vlength(rotvect)));
+  
+  object {
+    laser_pointer_obj
+    //rotate 30*z
+    rotate theta*axis
+    translate loc
+  }
+#end
+
+laser_pointer(<0,5,200>,<0,0.1,0>)
 
 object { 
   testplane
@@ -53,9 +69,3 @@ object {
 }
 
 
-object {
-  laser_pointer
-  //rotate 30*z
-  rotate 0.1*x
-  translate <0,0, 200>
-}
