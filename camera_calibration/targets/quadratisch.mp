@@ -9,6 +9,7 @@ paperheight := 297mm;
 
 beginfig(1)
 path p[];
+path frame;
 for alpha= 1 upto 9:
   p0:=halfsquareprojected(distance,alpha*4);
   p1:=halfsquareprojected(distance,alpha*4+2);
@@ -18,6 +19,8 @@ for alpha= 1 upto 9:
   pickup pencircle scaled 0.5;
   fill p5 shifted (paperwidth, paperheight/2) withcolor 0.5*white;
   draw p5 shifted (paperwidth, paperheight/2);
+  frame:=(0,0)--(paperwidth,0)--(paperwidth,paperheight)--(0,paperheight)--cycle;
+  clip currentpicture to frame;
 endfor;
 endfig;
 end
