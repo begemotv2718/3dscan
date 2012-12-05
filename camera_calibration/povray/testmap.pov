@@ -1,9 +1,10 @@
 #include "colors.inc"
+#declare clock2 = 2*clock-1.0; //running from -1 to 1
 camera {
   perspective
   up y
   right -(16/9)*x
-  location <0,0,(254.0/210.0)>
+  location <0,0,(254.0/210.0)*(1+0.2*clock2)>
   look_at <0,0,0>
   angle 92
 }
