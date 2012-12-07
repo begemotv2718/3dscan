@@ -1,3 +1,7 @@
+global_settings {
+  ambient_light <0.01,0.01,0.01>
+}
+
 #include "colors.inc"
 
 
