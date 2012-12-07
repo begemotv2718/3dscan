@@ -47,30 +47,35 @@ def extract_data(ypoints,zpoints,calibration):
   
 
 
-  
+frameno=0  
 
 def observer(f):
+  global frameno
   r = f[:,:,0]
   maxes = numpy.asarray([maxesgrad(r[:,i]) for i in xrange(r.shape[1])])
+  print "Shape: ", maxes.shape
   mask1 = (maxes[:,1]-maxes[:,0])<r.shape[0]*0.02 #We only accept vertical lines  where two edges of the laser line are close to each other
+  print "Mask shape: ", mask1.shape
+  print "Filtered shape: ", maxes[mask1,1].shape 
   good_points = float(numpy.sum(numpy.where(mask1,1,0)))
+  if(good_points<10):
+    return
   good_indices=numpy.arange(maxes.shape[0])[mask1]
   good_range = good_indices[-1]-good_indices[0]
-  if(good_range<10):
-    return
   print "shape1", r.shape[1], " good_range ", good_range, "  ",good_indices[-2]," ", good_indices[2]
   fraction = good_points/float(good_range+10) #fraction of good points
   print "current fraction = %f" % fraction
   goldenratio=1.618
+  frameno += 1
   if fraction >0.5:
       print fraction
       #extract_data(numpy.arange(maxes.shape[0])[mask1],maxes[mask1,1])
-      scipy.misc.imsave("/tmp/saved-%s.png" % strftime("%d-%m-%y-%H-%M-%S"),r)
-      lab.figure(1,figsize=(5.0*goldenratio,5.0))
-      lab.plot(numpy.arange(0,maxes.shape[0])[mask1],maxes[mask1,1])
-      lab.bar(numpy.arange(0,maxes.shape[0]),800*(1-mask1)) #mask out the ranges where maximums are bad
+      scipy.misc.imsave("/tmp/saved-%03d.png" % frameno,r)
+      lab.figure(frameno,figsize=(5.0*goldenratio,5.0))
+      lab.plot(numpy.arange(0,maxes.shape[0])[mask1],maxes[mask1,1],'bo')
+      lab.plot(numpy.arange(0,maxes.shape[0]),20*(1-mask1),'g+') #mask out the ranges where maximums are bad
       lab.ylabel("Position of maximum")
-      lab.savefig("/tmp/saved-%s-plt2.png" % strftime("%d-%m-%y-%H-%M-%S"))
+      lab.savefig("/tmp/saved-%03d-plt2.png" % frameno)
   
   
 
