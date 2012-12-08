@@ -50,7 +50,10 @@ def extract_data(ypoints,zpoints,calibration):
   rt_slope,rt_intercept,rt_r_val,rt_p_val,rt_std_err = stats.linregress(y_line_rt,z_line_rt)
   print "lft: slope %f, intercept %f, p_val %f, std_err %f" %(lft_slope,lft_intercept,lft_p_val,lft_std_err)
   print "rt: slope %f, intercept %f, p_val %f, std_err %f" %(rt_slope,rt_intercept,rt_p_val,rt_std_err)
+
   assert(abs(rt_intercept-lft_intercept)<0.1)
+
+
   z0=d*(rt_intercept+lft_intercept)/2.0
   gamma1=-(lft_slope+lft_intercept)/sqrt(2.0)
   gamma2=(rt_slope+rt_intercept)/sqrt(2.0)
@@ -58,7 +61,7 @@ def extract_data(ypoints,zpoints,calibration):
   gamma_minus = (gamma1-gamma2)/sqrt(2.0)
 
   def reconstruct_point(y_im,z_im):
-    coefficient = (gamma_plus+z0)/(gamma_plus*1+gamma_minus*y_im+1*z_im)
+    coefficient = (gamma_plus*d+z0)/(gamma_plus*1+gamma_minus*y_im+1*z_im)
     return numpy.asarray([1,y_im, z_im])*coefficient
   res= numpy.asarray([reconstruct_point(ypts_scaled[i],zpts_scaled[i]) for i in xrange(zpts_scaled.shape[0])])
   print "Result:", res
