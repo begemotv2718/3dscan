@@ -27,7 +27,48 @@ axis be $\alpha$, thus the angle between the second plane and the
 camera axis is $\pi/2-\alpha$. 
 
 Consider the point at distance $\rho$ from the line of intersection, lying on the first plane. The coordinates of this point will be 
-$(d-\rho \cos \alpha, -\rho \sin\alpha, z)$. The projection of such a point 
+$(d-\rho \cos \alpha,y_0 -\rho \sin\alpha, z)$. The projection of such a point has coordinates (in the following we assume $f=1$).
+\begin{equation}
+  \label{eq-projection1}
+  \begin{array}{l}
+    y_{im}=\frac{-\rho\sin\alpha+y_0}{d-\rho\cos\alpha}\\
+    z_{im}=\frac{z}{d-\rho\cos\alpha}
+  \end{array}
+\end{equation}
+
+Now assume that we have line in the first plane $z=z_0+\gamma_1\rho$. Substituting this into~(\ref{eq-projection1}) we can characterize the dependence of $y_{im}$ of $\rho$ by the following matrix (see appendix) 
+\begin{equation}
+ Y= \left(
+    \begin{array}{ll}
+      -\sin\alpha  & y_0 \\
+      -\cos\alpha  & d
+    \end{array}
+  \right).
+\end{equation}
+The dependence of $z_{im}$ of $\rho$ is characterized by the following matrix
+\begin{equation}
+  Z=\left(
+    \begin{array}{ll}
+      \gamma_1  & z_0 \\
+      -\cos\alpha  & d
+    \end{array}
+  \right).
+\end{equation}
+
+To express $z_{im}$ in terms of $y_{im}$ we need to express $\rho$ in terms of $y_{im}$ and substitute this into equation for $z_{im}$. Thus the dependence of $z_{im}$ of $y_{im}$ will be characterized by matrix $Z Y^{-1}$. Calculating this expression we find this matrix to have the following form
+\begin{equation}
+  Z_{im}= \left(
+    \begin{array}{ll}
+      \gamma_1 d + z_0 \cos\alpha  & -\gamma_1 y_0 -z_0 \sin\alpha\\
+      0  & \cos\alpha y_0 - d\sin\alpha
+    \end{array}
+  \right).
+\end{equation}
+Thus we have a linear dependence of $z_{im}$ of $y_{im}$ corresponding to the linear dependence of $z$ from $\rho$ in the plane. 
+  
+
+ 
+  
 
 \appendix
 \section{Rational function}
