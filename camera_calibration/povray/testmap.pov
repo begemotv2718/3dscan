@@ -40,6 +40,14 @@ global_settings {
 #if(shift=4)
   #declare clock_ycamera = clock_camera;
 #end
+#if(shift=5)
+  #declare clock_xcamera = clock_camera;
+  #declare clock_xpoint = clock_camera;
+#end
+#if(shift=6)
+  #declare clock_ycamera = clock_camera;
+  #declare clock_ypoint = clock_camera;
+#end
 
 camera {
   perspective
