@@ -39,7 +39,8 @@ light_source {
   pigment { 
     image_map {
       //gif "testpage.gif" 
-      png "circles2.png"
+      //png "circles2.png"
+      png "quadratisch2.png"
       map_type 0
       interpolate 2
       once

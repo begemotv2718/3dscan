@@ -19,5 +19,10 @@ scan.mp4: testmap.pov
 	ffmpeg -f image2 -r 1 -i testmap%02d.png -vcodec mpeg4 scan.mp4
 	rm testmap[0-9][0-9].png
 
+target.mp4: testmap.pov
+	povray -H576 -W1024 -KFF90 Declare=scene=1 $< 
+	ffmpeg -f image2 -r 1 -i testmap%02d.png -vcodec mpeg4 target.mp4
+	rm testmap[0-9][0-9].png
+
 all: testmap.png
 
