@@ -3,7 +3,7 @@ def halfsquareprojected(expr d, alpha) =
   (0,d*tand(alpha))--(d*tand(alpha)/(1+tand(alpha))*(-sqrt(2),1))--(d*tand(alpha)/(1+tand(alpha))*(-sqrt(2),-1))--(0,-d*tand(alpha))
 enddef;
     
-distance := 50cm;
+distance := 254mm;
 paperwidth := 210mm;
 paperheight := 297mm;
 
