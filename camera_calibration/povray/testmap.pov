@@ -18,12 +18,35 @@ global_settings {
   #declare clock_scan = clock2;
 #end
 
+#declare clock_ypoint = 0.0;
+#declare clock_xpoint = 0.0;
+#declare clock_xcamera = 0.0;
+#declare clock_ycamera = 0.0;
+#declare clock_zcamera = 0.0;
+
+
+#if(shift=0)
+  #declare clock_zcamera=clock_camera;
+#end
+#if(shift=1)
+  #declare clock_ypoint = clock_camera;
+#end
+#if(shift=2)
+  #declare clock_xpoint = clock_camera;
+#end
+#if(shift=3)
+  #declare clock_xcamera = clock_camera;
+#end
+#if(shift=4)
+  #declare clock_ycamera = clock_camera;
+#end
+
 camera {
   perspective
   up y
   right -(16/9)*x
-  location <0,0,(254.0/210.0)*(1+0.2*clock_camera)>
-  look_at <0,0,0>
+  location <clock_xcamera,clock_ycamera,(254.0/210.0)*(1+0.2*clock_zcamera)>
+  look_at <clock_xpoint,clock_ypoint,0>
   angle 92
 }
 
