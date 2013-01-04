@@ -129,13 +129,10 @@ def GetCornerType(x,y,img):
   y1=int(y)
   height = 5
   width = 5
-  print "x=", x1, "; y=", y1, "; width=", width, ";height=",height
-  print img
   rect1 = cv.Avg(cv.GetSubRect(img,(x1,y1, width, height)))
   rect2 = cv.Avg(cv.GetSubRect(img,(x1-width,y1,width, height)))
   rect3 = cv.Avg(cv.GetSubRect(img,(x1-width,y1-height,width,height)))
   rect4 = cv.Avg(cv.GetSubRect(img,(x1,y1-height,width,height)))
-  print "x=%d, y=%d :: 1: %f 2: %f 3: %f 4: %f" % (x,y,rect1[0],rect2[0],rect3[0],rect4[0])
   averages = [rect1[0],rect2[0],rect3[0],rect4[0]]
   clusters=cluster_points(averages)
   if(len(clusters[0]) == 2):
@@ -177,11 +174,23 @@ img_gs=cv.CreateImage((img.width,img.height),cv.IPL_DEPTH_32F,1)
 cv.CvtColor(img32f,img_gs,cv.CV_RGB2GRAY)
 font = cv.InitFont(cv.CV_FONT_HERSHEY_PLAIN,1.0,1.0)
 
+goodcorners=[[],[],[],[]]
 for (x,y) in cv.GoodFeaturesToTrack(img_gs, eig_image, temp_image, 50, 0.04, 3.0, blockSize=5):
   ptype = GetCornerType(x,y,img_gs)
-  print ptype
-  cv.PutText(img2,"%s%s" % ptype,(int(x),int(y)),font,cv.RGB(100,100,0))
-  cv.Circle(img2,(int(x),int(y)),5,cv.RGB(155,0,2))
+  if(ptype[0] in [0,1,2,3]):
+    goodcorners[ptype[0]].append((x,y,ptype[1]))
+
+goodcorners[0].sort(key=lambda point: point[0],reverse=True)
+goodcorners[1].sort(key=lambda point: point[0])
+goodcorners[2].sort(key=lambda point: point[0])
+goodcorners[3].sort(key=lambda point: point[0],reverse=True)
+
+for typ in range(4):
+  for n in range(len(goodcorners[typ])):
+     (x,y,t1)=goodcorners[typ][n]
+     print "x=%s y=%s z=%s" % (x,y,t1)
+     cv.PutText(img2,"%s%s%s" % (n,t1,typ), (int(x),int(y)),font,cv.RGB(100,100,0))
+     cv.Circle(img2,(int(x),int(y)),5,cv.RGB(155,0,2))
 
 cv.SaveImage("test.jpg",img2)
 
