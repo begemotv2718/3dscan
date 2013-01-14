@@ -2,6 +2,7 @@ import numpy as n
 import numpy.linalg as l
 import cv
 import sys
+from math import tan,sqrt
 
 def solve_camera(xyz, xy):
   """Given a numpy array of (x,y,z) triples and a numpy array of the corresponding image (x,y) pairs find a 12-element matrix of camera"""
@@ -172,7 +173,35 @@ img32f = cv.CreateImage((img.width,img.height),cv.IPL_DEPTH_32F, 3)
 cv.Convert(img,img32f)
 img_gs=cv.CreateImage((img.width,img.height),cv.IPL_DEPTH_32F,1)
 cv.CvtColor(img32f,img_gs,cv.CV_RGB2GRAY)
+
+
 font = cv.InitFont(cv.CV_FONT_HERSHEY_PLAIN,1.0,1.0)
+
+def tand(alpha):
+  return tan(alpha*3.1415926/180)
+
+d=254
+
+goldencorners2d=[]
+
+for alpha in range(1,10):
+  alpha1=4*alpha
+  alpha2=4*alpha+2
+  factor1 = d*tand(alpha1)/(1+tand(alpha1))
+  factor2 = d*tand(alpha2)/(1+tand(alpha2))
+  goldencorners2d.append( (factor1*sqrt(2),factor1) )
+  goldencorners2d.append( (factor2*sqrt(2),factor2) )
+
+goldencorners=[[],[],[],[]]
+for (xt,yt) in goldencorners2d:
+  x=-xt/sqrt(2)
+  y=yt
+  z=d-xt/sqrt(2)
+  goldencorners[0].append((x,y,z))
+  goldencorners[1].append((-x,y,z))
+  goldencorners[2].append((-x,-y,z))
+  goldencorners[3].append((x,-y,z))
+
 
 goodcorners=[[],[],[],[]]
 for (x,y) in cv.GoodFeaturesToTrack(img_gs, eig_image, temp_image, 50, 0.04, 3.0, blockSize=5):
