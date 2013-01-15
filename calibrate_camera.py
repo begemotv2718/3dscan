@@ -223,3 +223,30 @@ for typ in range(4):
 
 cv.SaveImage("test.jpg",img2)
 
+datacorners=zip(goodcorners[0],goldencorners[0])+zip(goodcorners[1],goldencorners[1])+zip(goodcorners[2],goldencorners[2])+zip(goodcorners[3],goldencorners[3])
+print datacorners
+objectPoints=cv.CreateMat(len(datacorners),3,cv.CV_32FC1)
+imPoints=cv.CreateMat(len(datacorners),2,cv.CV_32FC1)
+for i in range(len(datacorners)):
+  p2d,p3d=datacorners[i]  
+  objectPoints[i,0]=p3d[0]
+  objectPoints[i,1]=p3d[1]
+  objectPoints[i,2]=p3d[2]
+  imPoints[i,0]=p2d[0]
+  imPoints[i,1]=p2d[1]
+
+pointCounts = cv.CreateMat(1,1,cv.CV_32SC1)
+pointCounts[0,0]=len(datacorners)
+cameraMatrix=cv.CreateMat(3,3,cv.CV_32FC1)
+distCoefs=cv.CreateMat(4,1,cv.CV_32FC1)
+rvecs=cv.CreateMat(1,1,cv.CV_32FC3)
+tvecs=cv.CreateMat(1,1,cv.CV_32FC3)
+cv.CalibrateCamera2(objectPoints, imPoints, pointCounts, (img.width,img.height), cameraMatrix, distCoefs, rvecs, tvecs)
+
+print cameraMatrix
+print distCoefs
+print rvecs
+print tvecs
+
+
+
