@@ -8,7 +8,6 @@ def solve_camera(xyz, xy):
   """Given a numpy array of (x,y,z) triples and a numpy array of the corresponding image (x,y) pairs find a 12-element matrix of camera"""
   npoints = min(xyz.shape[0], xy.shape[0])
   syst = n.zeros((3*npoints+1,12+npoints))
-  print syst.shape
   for i in xrange(npoints):
     syst[3*i,0:3]=xyz[i,0:3]
     syst[3*i,3]=1
@@ -26,17 +25,13 @@ def solve_camera(xyz, xy):
   b=n.zeros(3*npoints+1)
   b[3*npoints]=1
   t=l.lstsq(syst,b)
-  print "rank", t[2]
+  rank=t[2]
+  if rank<12+npoints:
+    raise "Ambigous solution, low matrix rank"
   T=t[0][0:12].reshape((3,4))
-  print T
   dt=l.det(T[0:3,0:3])
   mod = pow(dt,1/3.0)
-  print T/mod
-
-  u,s,v=l.svd(syst2)
-  print "u=",u
-  print "s=",s
-  print "v=",v
+  return T/mod
 
 
 
@@ -54,4 +49,4 @@ print xyz_tr[0:2,1]/xyz_tr[2,1]
 xy= xyz_tr[0:2,:]/xyz_tr[2,:]
 xyz2 = n.delete(xyz,3,1)
 
-solve_camera(xyz2,xy.T)
+print solve_camera(xyz2,xy.T)
